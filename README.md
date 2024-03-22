@@ -1,43 +1,80 @@
 # Genre Classification Assignment Summary
 
-## Overview
-This project aimed to classify English language book excerpts into four genres: horror, science fiction, humor, and crime fiction, using machine learning. The challenge was part of a Kaggle competition, where the performance was evaluated based on the macro-averaged F1 score. The task involved developing a classification model that accurately identifies the genre of a given text sequence.
+## Assignment Overview
 
-## Methodology
+This assignment was developed as part of a Kaggle competition, aimed at classifying text sequences extracted from English-language books into four distinct genres: horror, science fiction, humor, and crime fiction. The challenge was to build a machine learning model capable of accurately predicting the genre of unseen text sequences, with performance evaluated using the macro-averaged F1 score.
 
-### Data Preparation
-The dataset comprised text sequences from different books, each labeled with its corresponding genre. The training and test datasets were distinct, ensuring the model's generalizability. The text data was tokenized and encoded using pre-trained models to convert text into a format suitable for machine learning models.
+## Data Description
+
+The dataset consisted of sequences of 10 contiguous sentences from various books, each labeled with one of four genre classes. The training and test datasets were sourced from different sets of books to ensure model generalizability. A unique feature of this dataset was the provision of `docids` for the training data, indicating the book each sequence was extracted from, although this was not available for the test data.
 
 **Note**: The dataset associated with this project is stored externally to control access. It is hosted on Google Drive. You can request viewing of the dataset [here](https://drive.google.com/drive/folders/1ycNtfizE7SyEkKF9Z4Y_D_kDnKTTNpP6?usp=drive_link).
 
-### Model Exploration
-Initially, I experimented with GRU and LSTM models to understand their performance on the dataset. However, these models did not yield satisfactory results on the validation and test sets, prompting a shift in strategy.
 
-### Final Solution
-The breakthrough came with the adoption of the pre-trained "distilbert-base-uncased" transformer model, specifically the "DistilBertForSequenceClassification." This model was fine-tuned for the genre classification task using the Trainer class from the Transformers library. The choice of DistilBERT was due to its efficiency and relatively lower resource requirements compared to other BERT variants, without a significant compromise on performance.
+### Data Preparation and Preprocessing
 
-### Training and Validation
-The model was trained with a 70-30 split between training and validation data. This split was chosen after experimenting with different ratios, as it provided a good balance between learning from the data and validating the model's performance. Class weights were calculated to address data imbalance, improving the model's sensitivity to less represented genres. Hyperparameters were fine-tuned based on validation set performance, focusing on learning rate and batch size adjustments.
+Data preprocessing involved several steps to transform raw text into a machine-readable format:
+- **Tokenization**: Text sequences were tokenized into words using the NLTK TreebankWordTokenizer.
+- **Encoding**: Words were converted into numerical representations using tokenizers from pre-trained models.
+- **Class Weight Calculation**: To address class imbalance, weights were computed for each genre, ensuring the model's sensitivity towards less represented classes.
 
-## Findings
-The fine-tuned DistilBERT model achieved a macro-averaged F1 score of over 0.8 on the validation set and 0.71217 on Kaggle, surpassing the performance of initial GRU and LSTM models. This success highlighted the effectiveness of leveraging pre-trained models for natural language processing tasks, especially when dealing with limited data.
+## Methodology
+
+### Initial Model Exploration
+
+The project began with an exploration of traditional NLP models, including GRU and LSTM neural networks. Despite their proven capabilities in sequence modeling tasks, these models did not perform satisfactorily on the validation and test datasets.
+
+### Adoption of Pre-trained Transformers
+
+Given the limitations of GRU and LSTM models in handling long sequences and the small dataset size, the focus shifted towards leveraging pre-trained transformers. The `distilbert-base-uncased` model, known for its efficiency and performance, was chosen. The model was fine-tuned specifically for this genre classification task using Hugging Face's Transformers library.
+
+#### Fine-tuning Process
+
+Fine-tuning involved the following key steps:
+- **Model Selection**: `DistilBertForSequenceClassification` was chosen for its suitability for classification tasks.
+- **Training-Validation Split**: The dataset was split into 70% training and 30% validation sets to balance between learning and validation performance.
+- **Hyperparameter Optimization**: Key hyperparameters, including learning rate and batch size, were tuned based on validation set performance.
+
+## Challenges and Solutions
+
+### Data Imbalance
+
+The dataset exhibited class imbalance, which could bias the model towards more frequent genres. This was mitigated by calculating and applying class weights during model training.
+
+### Long Sequence Handling
+
+Traditional models like GRU and LSTM struggled with the long sequences in the dataset. The transformer model, with its attention mechanism, provided a more effective solution by capturing long-range dependencies in the text.
+
+### Limited Dataset Size
+
+The relatively small size of the dataset posed a challenge for training complex models from scratch. Leveraging a pre-trained model and fine-tuning it on the task-specific dataset proved to be an effective strategy.
+
+## Results
+
+The fine-tuned DistilBERT model demonstrated superior performance, achieving an F1 score of over 0.8 on the validation set. Its performance on the Kaggle test set, with a score of 0.71217, was significantly better than the initial models, underscoring the effectiveness of transformer-based models for this task.
+
+## Conclusion and Future Work
+
+The project highlighted the potential of pre-trained transformer models in tackling NLP classification tasks, especially in scenarios with limited training data and long text sequences. Future work could explore the use of larger or more complex transformer models, ensemble methods, and more extensive hyperparameter tuning to further improve performance.
+
+## Key Learnings and Skills Demonstrated
+
+- Proficiency in data preprocessing and representation for NLP tasks.
+- Effective use of pre-trained transformer models for text classification.
+- Strategies for handling data imbalance and long sequence data.
+- Hyperparameter tuning and model validation techniques.
+
+## Technologies and Tools Used
+
+- **Programming Language**: Python
+- **Libraries and Frameworks**: PyTorch, Hugging Face Transformers, NLTK, Sklearn
+- **Tools**: Jupyter Notebook, Kaggle platform
+
 
 ## Conclusion
-The project demonstrated the power of transformer-based models in text classification tasks. The experience of fine-tuning a pre-trained model provided valuable insights into modern NLP techniques. Despite challenges with data imbalance and model selection, the final solution achieved commendable results in the Kaggle competition.
+This detailed report reflects the depth of analysis, experimentation, and problem-solving applied in this project, showcasing advanced machine learning techniques and a strategic approach to overcoming challenges in NLP tasks.
 
-## Key Learnings
-- The importance of data preprocessing and representation in NLP tasks.
-- The advantages of using pre-trained models like DistilBERT for complex classification tasks.
-- Strategies for addressing data imbalance through class weighting.
-- The effectiveness of iterative experimentation with model architectures and hyperparameters.
-
-## Technologies Used
-- Python for programming.
-- PyTorch and the Transformers library for model implementation and fine-tuning.
-- NLTK for text preprocessing and tokenization.
-- Sklearn for metrics calculation and evaluation.
-
-This project showcased my ability to apply advanced machine learning techniques to real-world problems, adapt to challenges, and iterate towards an effective solution. The skills and knowledge gained from this experience are invaluable assets for tackling future data science challenges.
+<br/><br/>
 
 ## **Disclaimer Regarding Dataset:**
 
