@@ -43,7 +43,7 @@ Fine-tuning involved the following key steps:
 
 ### Data Imbalance
 
-The dataset exhibited class imbalance, which could bias the model towards more frequent genres. This was mitigated by applying pre-trained machine learning models.
+The dataset exhibited class imbalance, which could bias the model towards more frequent genres. This was mitigated by calculated class weights during the model training process.
 
 ### Long Sequence Handling
 
