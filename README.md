@@ -1,5 +1,9 @@
 # Genre Classification Assignment Summary
 
+## Project Dates:
+Project start month: August 2022 \
+Project end month: September 2022
+
 ## Assignment Overview
 
 This assignment was developed as part of a Kaggle competition, aimed at classifying text sequences extracted from English-language books into four distinct genres: horror, science fiction, humor, and crime fiction. The challenge was to build a machine learning model capable of accurately predicting the genre of unseen text sequences, with performance evaluated using the macro-averaged F1 score.
